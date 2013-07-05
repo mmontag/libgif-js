@@ -738,7 +738,12 @@ var SuperGif = function ( options ) {
 				}
 
 			};
-			canvas.addEventListener((cantouch) ? 'touchmove' : 'mousemove', moveprogress);
+
+      if (options.rubbable) {
+        canvas.addEventListener((cantouch) ? 'touchstart' : 'mousedown', startup );
+        canvas.addEventListener((cantouch) ? 'touchend' : 'mouseup', shutdown);
+        canvas.addEventListener((cantouch) ? 'touchmove' : 'mousemove', moveprogress);
+      }
 		};
 
 
