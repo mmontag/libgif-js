@@ -610,11 +610,30 @@ var SuperGif = function ( options ) {
 			playing = true;
 			step();
 		};
-
+    
 		var pause = function () {
 			playing = false;
 		};
 
+    var play_once = function(finished_callback) {
+      playing = true;
+      //go to the beginning
+      i = 0;
+      putFrame()
+      
+      var delay = frames[i].delay * 10;
+      var do_play_once = function() {
+        stepFrame(1);
+        if (i < frames.length -1) {
+          setTimeout(do_play_once, delay);
+        }
+        else {
+          playing = false;
+          finished_callback();
+        }
+      }
+      setTimeout(do_play_once, delay)
+    }
 
 		return {
 			init: function () {
@@ -634,6 +653,7 @@ var SuperGif = function ( options ) {
 			step: step,
 			play: play,
 			pause: pause,
+      play_once: play_once,
 			playing: playing,
 			move_relative: stepFrame,
 			current_frame: function() { return i; },
@@ -691,14 +711,12 @@ var SuperGif = function ( options ) {
 				startTime = e.timeStamp;
 				startX = pos.pageX;
 			};
-			canvas.addEventListener((cantouch) ? 'touchstart' : 'mousedown', startup );
 
 			var shutdown = function (e) {
 				startTime = 0;
 				startX = 0;
 				if (options.auto_play) player.play();
 			};
-			canvas.addEventListener((cantouch) ? 'touchend' : 'mouseup', shutdown);
 
 			var moveprogress = function (e) {
 				e.preventDefault();
@@ -795,10 +813,14 @@ var SuperGif = function ( options ) {
 		// play controls
 		play: player.play,
 		pause: player.pause,
+    play_once: player.play_once,
 		move_relative: player.move_relative,
 		move_to: player.move_to,
 
 		// getters for instance vars
+    get_frame_period: function() {
+      return delay;
+    },
 		get_playing: function() {
 			return player.playing;
 		},
