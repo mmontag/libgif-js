@@ -610,30 +610,30 @@ var SuperGif = function ( options ) {
 			playing = true;
 			step();
 		};
-    
+		
 		var pause = function () {
 			playing = false;
 		};
 
-    var play_once = function(finished_callback) {
-      playing = true;
-      //go to the beginning
-      i = 0;
-      putFrame()
-      
-      var delay = frames[i].delay * 10;
-      var do_play_once = function() {
-        stepFrame(1);
-        if (i < frames.length -1) {
-          setTimeout(do_play_once, delay);
-        }
-        else {
-          playing = false;
-          finished_callback();
-        }
-      }
-      setTimeout(do_play_once, delay)
-    }
+		var play_once = function(finished_callback) {
+			playing = true;
+			//go to the beginning
+			i = 0;
+			putFrame()
+			
+			var delay = frames[i].delay * 10;
+			var do_play_once = function() {
+				stepFrame(1);
+				if (i < frames.length -1) {
+					setTimeout(do_play_once, delay);
+				}
+				else {
+					playing = false;
+					finished_callback();
+				}
+			}
+			setTimeout(do_play_once, delay)
+		}
 
 		return {
 			init: function () {
@@ -653,7 +653,7 @@ var SuperGif = function ( options ) {
 			step: step,
 			play: play,
 			pause: pause,
-      play_once: play_once,
+			play_once: play_once,
 			playing: playing,
 			move_relative: stepFrame,
 			current_frame: function() { return i; },
@@ -672,8 +672,8 @@ var SuperGif = function ( options ) {
 	var doNothing = function () {};
 	/**
 	 * @param{boolean=} draw Whether to draw progress bar or not; this is not idempotent because of translucency.
-	 *                       Note that this means that the text will be unsynchronized with the progress bar on non-frames;
-	 *                       but those are typically so small (GCE etc.) that it doesn't really matter. TODO: Do this properly.
+	 *											 Note that this means that the text will be unsynchronized with the progress bar on non-frames;
+	 *											 but those are typically so small (GCE etc.) that it doesn't really matter. TODO: Do this properly.
 	 */
 	var withProgress = function (fn, draw) {
 		return function (block) {
@@ -739,11 +739,11 @@ var SuperGif = function ( options ) {
 
 			};
 
-      if (options.rubbable) {
-        canvas.addEventListener((cantouch) ? 'touchstart' : 'mousedown', startup );
-        canvas.addEventListener((cantouch) ? 'touchend' : 'mouseup', shutdown);
-        canvas.addEventListener((cantouch) ? 'touchmove' : 'mousemove', moveprogress);
-      }
+			if (options.rubbable) {
+				canvas.addEventListener((cantouch) ? 'touchstart' : 'mousedown', startup );
+				canvas.addEventListener((cantouch) ? 'touchend' : 'mouseup', shutdown);
+				canvas.addEventListener((cantouch) ? 'touchmove' : 'mousemove', moveprogress);
+			}
 		};
 
 
@@ -818,14 +818,14 @@ var SuperGif = function ( options ) {
 		// play controls
 		play: player.play,
 		pause: player.pause,
-    play_once: player.play_once,
+		play_once: player.play_once,
 		move_relative: player.move_relative,
 		move_to: player.move_to,
 
 		// getters for instance vars
-    get_frame_period: function() {
-      return delay;
-    },
+		get_frame_period: function() {
+			return delay;
+		},
 		get_playing: function() {
 			return player.playing;
 		},
