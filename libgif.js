@@ -480,7 +480,7 @@ var SuperGif = function ( opts ) {
 
 	var doShowProgress = function (pos, length, draw) {
 		if (draw) {
-			var height = 25;
+			var height = 4;
 			var left, mid, top, width;
 			if (options.is_vp) {
 				if (!ctx_scaled) {
@@ -516,7 +516,7 @@ var SuperGif = function ( opts ) {
 			}
 			// XXX Figure out alpha fillRect.
 			//ctx.fillStyle = 'salmon';
-			ctx.fillStyle = 'rgba(255,255,255,0.4)';
+			ctx.fillStyle = 'rgba(255,255,255,1.0)';
 			ctx.fillRect(mid, top, width - mid, height);
 
 			//ctx.fillStyle = 'teal';
