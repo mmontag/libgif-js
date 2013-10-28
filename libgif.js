@@ -637,8 +637,9 @@ var SuperGif = function ( opts ) {
 
 		// We could use the on-page canvas directly, except that we draw a progress
 		// bar for each image chunk (not just the final image).
-		ctx.drawImage(tmpCanvas, 0, 0);
-
+		if (currIdx == 0) {
+			ctx.drawImage(tmpCanvas, 0, 0);
+		}
 		lastImg = img;
 	};
 
